@@ -1,0 +1,70 @@
+# -- Python --------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+ENV/
+.Python
+pip-wheel-metadata/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+nosetests.xml
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# -- Node ----------------------------------------------------------------------
+node_modules/
+frontend/dist/
+.next/
+.cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# -- IDE & OS ------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# -- Docker --------------------------------------------------------------------
+*.override.yml
+docker-compose.override.yml
+
+# -- Secrets & environment -----------------------------------------------------
+.env
+.env.local
+.env.*.local
+secrets/
+
+# -- Project-specific ----------------------------------------------------------
+uploads/
+*.db
+*.sqlite
+*.sqlite3
+
+# -- Evaluation reports (keep sample, ignore generated) ------------------------
+evaluation/reports/*.json
+!evaluation/reports/sample_report.json

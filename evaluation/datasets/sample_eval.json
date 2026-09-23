@@ -1,0 +1,62 @@
+[
+  {
+    "question": "What is the company's refund policy timeframe?",
+    "expected_answer": "Customers may request a refund within 30 days of purchase.",
+    "expected_sources": ["refund_policy.pdf"],
+    "category": "policy"
+  },
+  {
+    "question": "What are the system requirements for installation?",
+    "expected_answer": "The system requires at least 8GB RAM and Python 3.8 or higher.",
+    "expected_sources": ["installation_guide.pdf"],
+    "category": "technical"
+  },
+  {
+    "question": "How many vacation days do employees receive per year?",
+    "expected_answer": "Employees receive 20 vacation days per year after completing 6 months of employment.",
+    "expected_sources": ["hr_policy.pdf"],
+    "category": "hr"
+  },
+  {
+    "question": "What is the maximum file size for document uploads?",
+    "expected_answer": "The maximum file size for document uploads is 50MB.",
+    "expected_sources": ["user_guide.pdf"],
+    "category": "product"
+  },
+  {
+    "question": "What encryption standard is used for data at rest?",
+    "expected_answer": "All data at rest is encrypted using AES-256 encryption.",
+    "expected_sources": ["security_whitepaper.pdf"],
+    "category": "security"
+  },
+  {
+    "question": "How do I reset my password?",
+    "expected_answer": "To reset your password, click 'Forgot Password' on the login page and follow the email instructions.",
+    "expected_sources": ["user_guide.pdf"],
+    "category": "product"
+  },
+  {
+    "question": "What is the SLA for critical incidents?",
+    "expected_answer": "Critical incidents have a 4-hour response SLA and 24-hour resolution SLA.",
+    "expected_sources": ["sla_document.pdf"],
+    "category": "sla"
+  },
+  {
+    "question": "What programming languages are supported by the API?",
+    "expected_answer": "The API supports Python, JavaScript, Java, Go, and Ruby through official SDKs.",
+    "expected_sources": ["api_documentation.pdf"],
+    "category": "technical"
+  },
+  {
+    "question": "What is the data retention period?",
+    "expected_answer": "User data is retained for 90 days after account deletion unless a longer period is required by law.",
+    "expected_sources": ["privacy_policy.pdf"],
+    "category": "policy"
+  },
+  {
+    "question": "How many API requests are allowed per minute?",
+    "expected_answer": "Standard plan users are allowed 60 API requests per minute.",
+    "expected_sources": ["api_documentation.pdf"],
+    "category": "technical"
+  }
+]

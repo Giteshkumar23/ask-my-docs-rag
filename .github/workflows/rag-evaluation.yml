@@ -1,0 +1,73 @@
+name: RAG Evaluation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  RECALL_AT_5_THRESHOLD: "0.80"
+  CITATION_ACCURACY_THRESHOLD: "0.90"
+  FAITHFULNESS_THRESHOLD: "0.85"
+  ANSWER_RELEVANCE_THRESHOLD: "0.85"
+
+jobs:
+  evaluate:
+    name: RAG Evaluation Pipeline
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: eval_askdocs
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+
+      - name: Run evaluation
+        env:
+          DATABASE_URL: postgresql+asyncpg://postgres:password@localhost:5432/eval_askdocs
+          SECRET_KEY: eval-secret-key-12345678901234567890
+          LLM_PROVIDER: openai
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RECALL_AT_5_THRESHOLD: ${{ env.RECALL_AT_5_THRESHOLD }}
+          CITATION_ACCURACY_THRESHOLD: ${{ env.CITATION_ACCURACY_THRESHOLD }}
+          FAITHFULNESS_THRESHOLD: ${{ env.FAITHFULNESS_THRESHOLD }}
+          ANSWER_RELEVANCE_THRESHOLD: ${{ env.ANSWER_RELEVANCE_THRESHOLD }}
+        run: |
+          cd backend
+          python -m evaluation.scripts.run_ci_evaluation \
+            --dataset ../evaluation/datasets/sample_eval.json \
+            --output ../evaluation/reports/latest.json \
+            --recall-threshold $RECALL_AT_5_THRESHOLD \
+            --citation-threshold $CITATION_ACCURACY_THRESHOLD \
+            --faithfulness-threshold $FAITHFULNESS_THRESHOLD \
+            --relevance-threshold $ANSWER_RELEVANCE_THRESHOLD
+
+      - name: Upload evaluation report
+        uses: actions/upload-artifact@v4
+        with:
+          name: rag-evaluation-report
+          path: evaluation/reports/latest.json
+        if: always()
